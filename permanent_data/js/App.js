@@ -10,7 +10,7 @@ var App = (function () {
 	 * Current language of the system
 	 * @type {string}
 	 */
-	var currentLanguage = 'ru';
+	var currentLanguage = 'bg';
 
 	/**
 	 * Class of each template for underscore handling

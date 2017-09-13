@@ -2,19 +2,18 @@
 <html lang=uk>
 <head>
     <meta charset=utf-8>
-    <title>Downloads</title>
+    <title>Download</title>
     <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/2.0.2/jquery.min.js"></script>
     <script type="text/javascript">
         if (typeof jQuery === 'undefined') {
             document.write("<li" + "nk href='css/bootstrap.css' rel='stylesheet'>");
         }
     </script>
-    <link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.min.css" rel="stylesheet">
-    <script src="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/js/bootstrap.min.js"></script>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js"
+            type="text/javascript"></script>
     <style type="text/css">
-        body {
-            padding-top: 40px;
-        }
 
         .nav-list .icon-chevron-right {
             float: right;
@@ -32,47 +31,113 @@
             top: -40px;
             visibility: hidden;
         }
+
+        .dwl .title {
+            text-align: center;
+        }
+
+        .dwl .panel-heading h3 {
+            margin-top: 0;
+            margin-bottom: 0;
+        }
+
+        #fname, #dwl_fw {
+            display: inline-block;
+        }
+
+        progress {
+            margin-top: 10px;
+        }
+
     </style>
 </head>
-<body>
-<table class="table table-striped">
-    <caption><h2>Web Application</h2></caption>
-    <tr>
-        <td>Identifier</td>
-        <td id="dwl_ver0"></td>
-    </tr>
-    <tr>
-        <td>Date</td>
-        <td id="dwl_dat0"></td>
-    </tr>
-    <tr>
-        <td>Description</td>
-        <td id="dwl_descr0"></td>
-    </tr>
-    <tr>
-        <td id="dwl_err0" colspan="2"></td>
-    </tr>
-</table>
-<progress id="p" max=100 style="display:none"><span>0</span>%</progress>
-<form class="form-inline">
-    <legend>File to upload:</legend>
-    <input type="file" id="fname" name="fname"/>
-    <button class="btn" id="dwl_fw">Start Upload</button>
-</form>
-<table class="table table-striped">
-    <caption><h2>Available Software</h2></caption>
-    <thead>
-    <tr>
-        <th>Description</th>
-        <th>Version</th>
-        <th>Creation Time</th>
-    </tr>
-    </thead>
-    <tbody id="dwls"></tbody>
-</table>
-<form class="form-inline">
-    <div class="checkbox"><label><input id="vall" type="checkbox">View All</label></div>
-</form>
+<body class="dwl">
+<div class="container">
+    <div class="row">
+        <div class="col-sm-12">
+            <h1 class="title">Web application</h1>
+
+            <!-- CURRENT STATE -->
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3>Current status</h3>
+                </div>
+                <div class="panel-body">
+                    <table class="table table-striped">
+                        <tbody>
+                        <tr>
+                            <td>
+                                <label>Identifier:</label>
+                            </td>
+                            <td id="dwl_ver0"></td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <label>Date:</label>
+                            </td>
+                            <td id="dwl_dat0"></td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <label>Description:</label>
+                            </td>
+                            <td id="dwl_descr0"></td>
+                        </tr>
+                        <tr>
+                            <td id="dwl_err0" colspan="2"></td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- UPLOAD FILE -->
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3>Upload a new version</h3>
+                </div>
+                <div class="panel-body">
+                    <label>File to upload:</label>
+                    <input type="file" id="fname" name="fname"/>
+                    <button class="btn btn-primary btn-start-upload" id="dwl_fw">
+                        <span class="glyphicon glyphicon-upload"></span> Start recording
+                    </button>
+                    <progress id="p" max=100 style="display:none" class="">
+                        <span>0</span>%
+                    </progress>
+                </div>
+            </div>
+
+            <!-- AVAILABLE SOFTWARE -->
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3>Available updates</h3>
+                </div>
+                <div class="panel-body">
+                    <table class="table table-striped">
+                        <thead>
+                        <tr>
+                            <th>Description</th>
+                            <th>Version</th>
+                            <th>Creation time</th>
+                        </tr>
+                        </thead>
+                        <tbody id="dwls"></tbody>
+                    </table>
+
+                    <div class="checkbox">
+                        <label>
+                            <input id="vall" type="checkbox">Show all
+                        </label>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
 <script type="text/javascript" src="base.js"></script>
 <script type="text/javascript">
     if (window.addEventListener) window.addEventListener("load", init, false);
@@ -212,7 +277,7 @@
                     id(el).innerHTML = decode(el, obj[el]);
                 }
             } else {
-                id("dwl_err0").innerHTML = "Loading...";
+                //id("dwl_err0").innerHTML = "Loading...";
             }
         }
         r.open("POST", "cgi/pdwl", true);
@@ -240,7 +305,7 @@
     }
 
     function firmwareDwl() {
-        if (confirm("Upload '" + this.descr + "'?")) {
+        if (confirm("Record '" + this.descr + "'?")) {
             var request                = HTTP.newRequest();
             request.onreadystatechange = function () {
                 if (request.readyState == 4) {

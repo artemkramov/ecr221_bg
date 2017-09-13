@@ -2,7 +2,7 @@
 <html lang=uk>
 <head>
     <meta charset=utf-8>
-    <title>Ke stažení</title>
+    <title>Download</title>
     <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/2.0.2/jquery.min.js"></script>
     <script type="text/javascript">
         if (typeof jQuery === 'undefined') {
@@ -55,31 +55,31 @@
 <div class="container">
     <div class="row">
         <div class="col-sm-12">
-            <h1 class="title">Webová aplikace</h1>
+            <h1 class="title">Web application</h1>
 
             <!-- CURRENT STATE -->
             <div class="panel panel-default">
                 <div class="panel-heading">
-                    <h3>Současný stav</h3>
+                    <h3>Current status</h3>
                 </div>
                 <div class="panel-body">
                     <table class="table table-striped">
                         <tbody>
                         <tr>
                             <td>
-                                <label>Identifikátor:</label>
+                                <label>Identifier:</label>
                             </td>
                             <td id="dwl_ver0"></td>
                         </tr>
                         <tr>
                             <td>
-                                <label>Datum:</label>
+                                <label>Date:</label>
                             </td>
                             <td id="dwl_dat0"></td>
                         </tr>
                         <tr>
                             <td>
-                                <label>Popis:</label>
+                                <label>Description:</label>
                             </td>
                             <td id="dwl_descr0"></td>
                         </tr>
@@ -94,13 +94,13 @@
             <!-- UPLOAD FILE -->
             <div class="panel panel-default">
                 <div class="panel-heading">
-                    <h3>Nahrát novou verzi</h3>
+                    <h3>Upload a new version</h3>
                 </div>
                 <div class="panel-body">
-                    <label>Soubor k nahrání:</label>
+                    <label>File to upload:</label>
                     <input type="file" id="fname" name="fname"/>
                     <button class="btn btn-primary btn-start-upload" id="dwl_fw">
-                        <span class="glyphicon glyphicon-upload"></span> Začít nahrávat
+                        <span class="glyphicon glyphicon-upload"></span> Start recording
                     </button>
                     <progress id="p" max=100 style="display:none" class="">
                         <span>0</span>%
@@ -111,15 +111,15 @@
             <!-- AVAILABLE SOFTWARE -->
             <div class="panel panel-default">
                 <div class="panel-heading">
-                    <h3>Dostupné aktualizace</h3>
+                    <h3>Available updates</h3>
                 </div>
                 <div class="panel-body">
                     <table class="table table-striped">
                         <thead>
                         <tr>
-                            <th>Popis</th>
-                            <th>Verze</th>
-                            <th>Čas vytvoření</th>
+                            <th>Description</th>
+                            <th>Version</th>
+                            <th>Creation time</th>
                         </tr>
                         </thead>
                         <tbody id="dwls"></tbody>
@@ -127,7 +127,7 @@
 
                     <div class="checkbox">
                         <label>
-                            <input id="vall" type="checkbox">Zobrazit všechny
+                            <input id="vall" type="checkbox">Show all
                         </label>
                     </div>
 
@@ -305,7 +305,7 @@
     }
 
     function firmwareDwl() {
-        if (confirm("Nahrát '" + this.descr + "'?")) {
+        if (confirm("Record '" + this.descr + "'?")) {
             var request                = HTTP.newRequest();
             request.onreadystatechange = function () {
                 if (request.readyState == 4) {
