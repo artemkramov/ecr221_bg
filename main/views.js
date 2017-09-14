@@ -1647,3 +1647,38 @@ var InterfacesTable = Backbone.View.extend({
 	}
 });
 
+var NapView = PageView.extend({
+	events: {
+		"submit .nap-form": "onFormSubmit",
+		"change input.form-control, change select.form-control": "onInputChanged"
+	},
+	onInputChanged: function (e) {
+		var input = $(e.target);
+		this.model.set($(input).attr('name'), $(input).val());
+	},
+	onFormSubmit: function () {
+		console.log(this.model.toJSON());
+		return false;
+	},
+	render: function() {
+		this.delegateEvents();
+		this.$el.empty();
+		var data = this.model.toJSON();
+		data.dropdowns = this.model.getDropdowns();
+		this.$el.append(this.template(data));
+		return this;
+	}
+});
+
+var NapRegView = NapView.extend({
+	template: _.template($("#reg-nap").html())
+});
+
+var NapDeRegView = NapView.extend({
+	template: _.template($("#dereg-nap").html())
+});
+
+var NapGetInfoView = NapView.extend({
+	template: _.template($("#get-info-nap").html())
+});
+

@@ -33,6 +33,8 @@ function initDateTime() {
 	};
 
 	$(".form-datetime").datetimepicker({format: 'dd-mm-yyyy hh:ii:ss', language: schema.lang});
+
+	$(".form-datetime-iso").datetimepicker({format: 'yyyy-mm-ddThh:ii:ss', language: schema.lang});
 }
 
 function getDatetime(dateTime) {
@@ -355,4 +357,318 @@ function loadTexts(data, err) {
 		ret.reject();
 	}
 	return ret.promise();
+}
+
+function getPSType()
+{
+	return [
+		{
+			id: 1,
+			name: t("Object of sale of cars and motorcycles")
+		},
+		{
+			id: 2,
+			name: t("TE shop with parts and accessories for cars and motorcycles")
+		},
+		{
+			id: 3,
+			name: t("TE site with fuels, lubricants")
+		},
+		{
+			id: 4,
+			name: t("Food ED Food Facility")
+		},
+		{
+			id: 5,
+			name: t("TE plant with tobacco products, alcohol")
+		},
+		{
+			id: 6,
+			name: t("Site for TE with grain, seeds, feed")
+		},
+		{
+			id: 7,
+			name: t("Object for TE with textiles, clothing, shoes")
+		},
+		{
+			id: 8,
+			name: t("TE facility with furniture, electrical appliances, lighting fixtures")
+		},
+		{
+			id: 9,
+			name: t("Object of TE with other goods not classified elsewhere")
+		},
+		{
+			id: 10,
+			name: t("Object of TD with parts and accessories for cars and motorcycles")
+		},
+		{
+			id: 11,
+			name: t("TD site with automotive fuels and lubricants")
+		},
+		{
+			id: 12,
+			name: t("TD with meat products")
+		},
+		{
+			id: 13,
+			name: t("TD site with tobacco products or alcohol")
+		},
+		{
+			id: 14,
+			name: t("TD with bread and bakery products")
+		},
+		{
+			id: 15,
+			name: t("TD Plant with Fruits and Vegetables")
+		},
+		{
+			id: 16,
+			name: t("TD fish farm")
+		},
+		{
+			id: 17,
+			name: t("TD with diverse food products")
+		},
+		{
+			id: 18,
+			name: t("TD with pharmaceuticals")
+		},
+		{
+			id: 19,
+			name: t("Object for TD with orthopedic goods")
+		},
+		{
+			id: 20,
+			name: t("Object for TD with perfumery and cosmetic goods")
+		},
+		{
+			id: 21,
+			name: t("TD with fabric")
+		},
+		{
+			id: 22,
+			name: t("Object for TD with clothing")
+		},
+		{
+			id: 23,
+			name: t("TD with shoes")
+		},
+		{
+			id: 24,
+			name: t("Object for TD with furniture")
+		},
+		{
+			id: 25,
+			name: t("TD facility with electrical appliances and lighting fixtures")
+		},
+		{
+			id: 26,
+			name: t("Site for TD with hardware, paints, chemical preparations")
+		},
+		{
+			id: 27,
+			name: t("Establishment of TD with printed literature and stationery")
+		},
+		{
+			id: 28,
+			name: t("TD with second-hand goods")
+		},
+		{
+			id: 29,
+			name: t("Object for TD with antiques and artworks")
+		},
+		{
+			id: 30,
+			name: t("TD with jewelery and watches")
+		},
+		{
+			id: 31,
+			name: t("Establishment of TD with computers, office equipment")
+		},
+		{
+			id: 32,
+			name: t("TD site with heterogeneous non-food goods")
+		},
+		{
+			id: 33,
+			name: t("Object of TD with other goods, not elsewhere classified")
+		},
+		{
+			id: 34,
+			name: t("Maintenance and repair of motor vehicles and motorcycles")
+		},
+		{
+			id: 35,
+			name: t("Repair of electrical appliances and lighting fixtures")
+		},
+		{
+			id: 36,
+			name: t("Furniture repair facility")
+		},
+		{
+			id: 37,
+			name: t("Clothing and shoe repair facility")
+		},
+		{
+			id: 38,
+			name: t("Jewelery and watches repair shop")
+		},
+		{
+			id: 39,
+			name: t("Repair of computer and office equipment")
+		},
+		{
+			id: 40,
+			name: t("Repair facility for other goods not elsewhere classified")
+		},
+		{
+			id: 41,
+			name: t("Tourist accommodation - hotels")
+		},
+		{
+			id: 42,
+			name: t("Another accommodation facility")
+		},
+		{
+			id: 43,
+			name: t("Drinking facility")
+		},
+		{
+			id: 44,
+			name: t("Restaurant")
+		},
+		{
+			id: 45,
+			name: t("Eat-only restaurant")
+		},
+		{
+			id: 46,
+			name: t("Point of sale for railway tickets")
+		},
+		{
+			id: 47,
+			name: t("Airline ticket sales")
+		},
+		{
+			id: 48,
+			name: t("Bus ticket selling facility")
+		},
+		{
+			id: 49,
+			name: t("Ticket sale for sea and river transport")
+		},
+		{
+			id: 50,
+			name: t("Ticket for various modes of transport")
+		},
+		{
+			id: 51,
+			name: t("Taxi or route")
+		},
+		{
+			id: 52,
+			name: t("Subject to the provision of services for the carriage of goods")
+		},
+		{
+			id: 53,
+			name: t("Provision of services by a tour operator")
+		},
+		{
+			id: 54,
+			name: t("Post and courier services")
+		},
+		{
+			id: 55,
+			name: t("Object of provision of telecommunications services")
+		},
+		{
+			id: 56,
+			name: t("Financial Services Provider")
+		},
+		{
+			id: 57,
+			name: t("Providing of insurance services")
+		},
+		{
+			id: 58,
+			name: t("Brokerage facility")
+		},
+		{
+			id: 59,
+			name: t("Provider of real estate brokerage services")
+		},
+		{
+			id: 60,
+			name: t("Vehicle rental")
+		},
+		{
+			id: 61,
+			name: t("Rental of other machinery, equipment, machinery")
+		},
+		{
+			id: 62,
+			name: t("Providing services related to computer technology - consultancy, software development, data processing")
+		},
+		{
+			id: 63,
+			name: t("Research and development facility")
+		},
+		{
+			id: 64,
+			name: t("Object of providing accounting and auditing services")
+		},
+		{
+			id: 65,
+			name: t("Legal service provider")
+		},
+		{
+			id: 66,
+			name: t("Object of provision of advertising services")
+		},
+		{
+			id: 67,
+			name: t("Providing consulting services, not elsewhere classified")
+		},
+		{
+			id: 68,
+			name: t("Provision of educational services")
+		},
+		{
+			id: 69,
+			name: t("Establishment of medical services")
+		},
+		{
+			id: 70,
+			name: t("Establishment of Veterinary Services")
+		},
+		{
+			id: 71,
+			name: t("Cinemas, theaters, concert halls")
+		},
+		{
+			id: 72,
+			name: t("Circuses, fairs, amusement parks, botanical gardens, zoos")
+		},
+		{
+			id: 73,
+			name: t("Libraries, museums, galleries")
+		},
+		{
+			id: 74,
+			name: t("Stadiums, sports halls, sports grounds, swimming pools and other facilities for physical culture and sports")
+		},
+		{
+			id: 75,
+			name: t("Betting and gambling sites")
+		},
+		{
+			id: 76,
+			name: t("Object of provision of cleaning services for objects and personal belongings")
+		},
+		{
+			id: 77,
+			name: t("Currency exchange facility in cash")
+		}
+	];
 }

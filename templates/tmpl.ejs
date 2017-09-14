@@ -280,6 +280,7 @@
     </div>
     <div class="form-group" id="date-group">
         <label for="d" class="col-sm-2 control-label"><%= t("Datetime") %></label>
+
         <div class="col-sm-10">
             <input type="text" class="form-control form-datetime" id="d" placeholder="DD-MM-YYYY H:I:S">
         </div>
@@ -383,7 +384,8 @@
             </div>
             <div class="form-group">
                 <label><%= t("Delimiter") %></label>
-                <input type="text" class="form-control backup-delimiter" maxlength="1" id="export-delimiter" value="<%= exportDelimiter %>"/>
+                <input type="text" class="form-control backup-delimiter" maxlength="1" id="export-delimiter"
+                       value="<%= exportDelimiter %>"/>
             </div>
             <div class="form-group">
                 <label><%= t("Backup file name") %></label>
@@ -438,9 +440,11 @@
         <div class="panel-body">
             <label><%= t("Choose an archive to import") %></label>
             <input type="file" accept=".zip" id="file-import">
+
             <div class="form-group">
                 <label><%= t("Delimiter") %></label>
-                <input type="text" class="form-control backup-delimiter" maxlength="1" id="import-delimiter" value="<%= importDelimiter %>"/>
+                <input type="text" class="form-control backup-delimiter" maxlength="1" id="import-delimiter"
+                       value="<%= importDelimiter %>"/>
             </div>
             <button type="button" class="btn btn-danger btn-import-run" disabled="true">
                 <%= t("Import") %>
@@ -539,4 +543,366 @@
         </div>
         <% }) %>
     </div>
+</script>
+
+<script type="text/template" id="reg-nap">
+    <form class="nap-form">
+        <div class="row">
+            <div class="col-sm-6">
+                <div class="form-group">
+                    <label for="sFDType"><%= t("sFDType") %>:</label>
+                    <select class="form-control" id="sFDType" name="sFDType" required>
+                        <% _.each(dropdowns.sFDType, function (item) { %>
+                        <option value="<%= item.id %>" <%= item.id == sFDType ? "selected" : "" %>><%= item.name %></option>
+                        <% }) %>
+                    </select>
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <div class="form-group">
+                    <label for="sEIK"><%= t("sEIK") %>:</label>
+                    <input type="text" id="sEIK" name="sEIK" class="form-control" value="<%= sEIK %>" required/>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-6">
+                <div class="form-group">
+                    <label for="sEIKType"><%= t("sEIKType") %>:</label>
+                    <select class="form-control" id="sEIKType" name="sEIKType" required>
+                        <% _.each(dropdowns.sEIKType, function (item) { %>
+                        <option value="<%= item.id %>" <%= item.id == sEIKType ? "selected" : "" %>><%= item.name %></option>
+                        <% }) %>
+                    </select>
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <div class="form-group">
+                    <label for="sFDIN"><%= t("sFDIN") %>:</label>
+                    <input type="text" id="sFDIN" name="sFDIN" class="form-control" value="<%= sFDIN %>"
+                           pattern=".{8,8}" title="<%= t("8 symbols") %>" required/>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-6">
+                <div class="form-group">
+                    <label for="sFMIN"><%= t("sFMIN") %>:</label>
+                    <input type="text" id="sFMIN" name="sFMIN" class="form-control" value="<%= sFMIN %>"
+                           pattern=".{8,8}" title="<%= t("8 symbols") %>"/>
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <div class="form-group">
+                    <label for="sFDCert"><%= t("sFDCert") %>:</label>
+                    <input type="text" id="sFDCert" name="sFDCert" class="form-control" value="<%= sFDCert %>"
+                           required/>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-6">
+                <div class="form-group">
+                    <label for="sIMSItf"><%= t("sIMSItf") %>:</label>
+                    <input type="text" id="sIMSItf" name="sIMSItf" class="form-control" value="<%= sIMSItf %>"
+                           required/>
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <div class="form-group">
+                    <label for="sMSISDN"><%= t("sMSISDN") %>:</label>
+                    <input type="text" id="sMSISDN" name="sMSISDN" class="form-control" value="<%= sMSISDN %>"
+                           required/>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-6">
+                <div class="form-group">
+                    <label for="sOPID"><%= t("sOPID") %>:</label>
+                    <select class="form-control" id="sOPID" name="sOPID" required>
+                        <% _.each(dropdowns.sOPID, function (item) { %>
+                        <option value="<%= item.id %>" <%= item.id == sOPID ? "selected" : "" %>><%= item.name %></option>
+                        <% }) %>
+                    </select>
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <div class="form-group">
+                    <label for="sOrgName"><%= t("sOrgName") %>:</label>
+                    <input type="text" id="sOrgName" name="sOrgName" class="form-control" value="<%= sOrgName %>"
+                           maxlength="200" required/>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-6">
+                <div class="form-group">
+                    <label for="sPSNum"><%= t("sPSNum") %>:</label>
+                    <input type="text" id="sPSNum" name="sPSNum" class="form-control" value="<%= sPSNum %>"
+                           maxlength="4" required/>
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <div class="form-group">
+                    <label for="sPSType"><%= t("sPSType") %>:</label>
+                    <select class="form-control" id="sPSType" name="sPSType" required>
+                        <% _.each(dropdowns.sPSType, function (item) { %>
+                        <option value="<%= item.id %>" <%= item.id == sPSType ? "selected" : "" %>><%= item.name %></option>
+                        <% }) %>
+                    </select>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-6">
+                <div class="form-group">
+                    <label for="sSEKATTE"><%= t("sSEKATTE") %>:</label>
+                    <input type="text" id="sSEKATTE" name="sSEKATTE" class="form-control" value="<%= sSEKATTE %>"
+                           required/>
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <div class="form-group">
+                    <label for="sSettl"><%= t("sSettl") %>:</label>
+                    <input type="text" id="sSettl" name="sSettl" class="form-control" value="<%= sSettl %>"
+                           required/>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-6">
+                <div class="form-group">
+                    <label for="sAEkatte"><%= t("sAEkatte") %>:</label>
+                    <input type="text" id="sAEkatte" name="sAEkatte" class="form-control" value="<%= sAEkatte %>"
+                           required/>
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <div class="form-group">
+                    <label for="sArea"><%= t("sArea") %>:</label>
+                    <input type="text" id="sArea" name="sArea" class="form-control" value="<%= sArea %>"
+                           required/>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-6">
+                <div class="form-group">
+                    <label for="sStreetCode"><%= t("sStreetCode") %>:</label>
+                    <input type="text" id="sStreetCode" name="sStreetCode" class="form-control"
+                           value="<%= sStreetCode %>"
+                           required/>
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <div class="form-group">
+                    <label for="sStreet"><%= t("sStreet") %>:</label>
+                    <input type="text" id="sStreet" name="sStreet" class="form-control" value="<%= sStreet %>"
+                           required/>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-6">
+                <div class="form-group">
+                    <label for="sStrNo"><%= t("sStrNo") %>:</label>
+                    <input type="text" id="sStrNo" name="sStrNo" class="form-control" value="<%= sStrNo %>"
+                           required/>
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <div class="form-group">
+                    <label for="sBlock"><%= t("sBlock") %>:</label>
+                    <input type="text" id="sBlock" name="sBlock" class="form-control" value="<%= sBlock %>"/>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-6">
+                <div class="form-group">
+                    <label for="sEn"><%= t("sEn") %>:</label>
+                    <input type="text" id="sEn" name="sEn" class="form-control" value="<%= sEn %>"/>
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <div class="form-group">
+                    <label for="sFl"><%= t("sFl") %>:</label>
+                    <input type="text" id="sFl" name="sFl" class="form-control" value="<%= sFl %>"/>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-6">
+                <div class="form-group">
+                    <label for="sAp"><%= t("sAp") %>:</label>
+                    <input type="text" id="sAp" name="sAp" class="form-control" value="<%= sAp %>"/>
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <div class="form-group">
+                    <label for="sPSName"><%= t("sPSName") %>:</label>
+                    <input type="text" id="sPSName" name="sPSName" class="form-control" value="<%= sPSName %>"
+                           required/>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-6">
+                <div class="form-group">
+                    <label for="sSOD"><%= t("sSOD") %>:</label>
+                    <input type="text" id="sSOD" name="sSOD" class="form-control form-datetime-iso" value="<%= sSOD %>"
+                           required/>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-6">
+                <div class="form-group">
+                    <input type="submit" value="<%= t("NAP registration") %>" class="btn btn-primary "/>
+                </div>
+            </div>
+        </div>
+    </form>
+</script>
+
+<script type="text/template" id="dereg-nap">
+    <form class="nap-form">
+        <div class="row">
+            <div class="col-sm-6">
+                <div class="form-group">
+                    <label for="sFDType"><%= t("sFDType") %>:</label>
+                    <select class="form-control" id="sFDType" name="sFDType" required>
+                        <% _.each(dropdowns.sFDType, function (item) { %>
+                        <option value="<%= item.id %>" <%= item.id == sFDType ? "selected" : "" %>><%= item.name %></option>
+                        <% }) %>
+                    </select>
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <div class="form-group">
+                    <label for="sEIK"><%= t("sEIK") %>:</label>
+                    <input type="text" id="sEIK" name="sEIK" class="form-control" value="<%= sEIK %>" required/>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-6">
+                <div class="form-group">
+                    <label for="sEIKType"><%= t("sEIKType") %>:</label>
+                    <select class="form-control" id="sEIKType" name="sEIKType" required>
+                        <% _.each(dropdowns.sEIKType, function (item) { %>
+                        <option value="<%= item.id %>" <%= item.id == sEIKType ? "selected" : "" %>><%= item.name %></option>
+                        <% }) %>
+                    </select>
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <div class="form-group">
+                    <label for="sFDIN"><%= t("sFDIN") %>:</label>
+                    <input type="text" id="sFDIN" name="sFDIN" class="form-control" value="<%= sFDIN %>"
+                           pattern=".{8,8}" title="<%= t("8 symbols") %>" required/>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-6">
+                <div class="form-group">
+                    <label for="sFMIN"><%= t("sFMIN") %>:</label>
+                    <input type="text" id="sFMIN" name="sFMIN" class="form-control" value="<%= sFMIN %>"
+                           pattern=".{8,8}" title="<%= t("8 symbols") %>"/>
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <div class="form-group">
+                    <label for="sFDRID"><%= t("sFDRID") %>:</label>
+                    <input type="text" id="sFDRID" name="sFDRID" class="form-control" value="<%= sFDRID %>"
+                           required pattern=".{6,}" title="<%= t("Min 6 symbols") %>"/>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-6">
+                <div class="form-group">
+                    <label for="sRCFD"><%= t("sRCFD") %>:</label>
+                    <select class="form-control" id="sRCFD" name="sRCFD" required>
+                        <% _.each(dropdowns.sRCFD, function (group) { %>
+                        <optgroup label="<%= group.name %>">
+                            <% _.each(group.items, function (item) { %>
+                            <option value="<%= item.id %>" <%= item.id == sRCFD ? "selected" : "" %>><%= item.name %></option>
+                            <% }) %>
+                        </optgroup>
+                        <% }) %>
+                    </select>
+                </div>
+            </div>
+
+        </div>
+        <div class="row">
+            <div class="col-sm-6">
+                <div class="form-group">
+                    <input type="submit" value="<%= t("NAP deregistration") %>" class="btn btn-primary "/>
+                </div>
+            </div>
+        </div>
+    </form>
+</script>
+
+<script type="text/template" id="get-info-nap">
+    <form class="nap-form">
+        <div class="row">
+            <div class="col-sm-6">
+                <div class="form-group">
+                    <label for="sEIK"><%= t("sEIK") %>:</label>
+                    <input type="text" id="sEIK" name="sEIK" class="form-control" value="<%= sEIK %>" required/>
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <div class="form-group">
+                    <label for="sEIKType"><%= t("sEIKType") %>:</label>
+                    <select class="form-control" id="sEIKType" name="sEIKType" required>
+                        <% _.each(dropdowns.sEIKType, function (item) { %>
+                        <option value="<%= item.id %>" <%= item.id == sEIKType ? "selected" : "" %>><%= item.name %></option>
+                        <% }) %>
+                    </select>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-6">
+                <div class="form-group">
+                    <label for="sIMSItf"><%= t("sIMSItf") %>:</label>
+                    <input type="text" id="sIMSItf" name="sIMSItf" class="form-control" value="<%= sIMSItf %>"
+                           required/>
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <div class="form-group">
+                    <label for="sMSISDN"><%= t("sMSISDN") %>:</label>
+                    <input type="text" id="sMSISDN" name="sMSISDN" class="form-control" value="<%= sMSISDN %>"
+                           required/>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-6">
+                <div class="form-group">
+                    <label for="sOPID"><%= t("sOPID") %>:</label>
+                    <select class="form-control" id="sOPID" name="sOPID" required>
+                        <% _.each(dropdowns.sOPID, function (item) { %>
+                        <option value="<%= item.id %>" <%= item.id == sOPID ? "selected" : "" %>><%= item.name %></option>
+                        <% }) %>
+                    </select>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-sm-6">
+                <div class="form-group">
+                    <input type="submit" value="<%= t("NAP deregistration") %>" class="btn btn-primary "/>
+                </div>
+            </div>
+        </div>
+    </form>
 </script>

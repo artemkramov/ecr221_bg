@@ -96,7 +96,9 @@ var FiscalCell = Backbone.Model.extend({
 			if (!_.isUndefined(response["FskMode"])) {
 				$this.set("isFiscalPrinter", true);
 			}
-			String.prototype.contains = function(it) { return this.indexOf(it) != -1; };
+			String.prototype.contains = function (it) {
+				return this.indexOf(it) != -1;
+			};
 			if (response["model"].contains("ГНОМ")) {
 				window.isGNOME = true;
 			}
@@ -545,80 +547,202 @@ var NetworkInfo = Backbone.Collection.extend({
 	}
 });
 
-/*var salesCell = new Backbone.Model({zno:1,total:0.0,taxes:0.0,discounts:0.0,insafe:0.0});
- var receiptsCell = new Backbone.Model({receipts:0,returns:0,lrSum:0.0,lrNo:0.0,lrTime:0});*/
-/*    var sumRep = new Backbone.Model({
- sales: [
- {txLet:'A',txPrc:'20%',txSum:200,txTx:20,txrSum:-10,txrTx:-1},
- {txLet:'B',txPrc:'0%',txSum:100,txTx:0,txrSum:0,txrTx:0}
- ],
- money: [
- {name:'Готівка',sumIn:200,sumOut:-10,inSafe:true},
- {name:'Чек',sumIn:50,sumOut:0,inSafe:false},
- {name:'Картка',sumIn:50,sumOut:0,inSafe:false}
- ],
- oper: [
- {name:'Відсоткова знижка',ops:1,sum:15},
- {name:'Відмова',ops:1,sum:-20}
- ]
- });
- var pluRep = new Backbone.Collection([
- {id:1,name:"tov1",kol:9,sum:233.09},
- {id:2,name:"tov2",kol:9,sum:233.09},
- {id:3,name:"tov3",kol:9,sum:233.09},
- {id:4,name:"tov4",kol:9,sum:233.09},
- {id:5,name:"tov5",kol:9,sum:233.09},
- {id:6,name:"tov6",kol:9,sum:233.09}
- ]);
- //var ECRReceipt = Backbone.Collection();
- var CHKR = {SALE:0,COMM:1,PROM:2,DSK:3,ENDCHK:4,OPL:5,INOUT:6};
- var receipts = new Backbone.Collection([
- {no:1,type:CHK_TYPE.SALE,ecr_no:"AA12345678",dat:new Date(2012,11,22,12,22),rows:[
- {type:CHKR.SALE,code:1,name:'Tov1',kol:5,cen:3.25,sum:16.25,tax:'A'},
- {type:CHKR.SALE,code:3,name:'Tov3',sum:16.25,tax:'A'},
- {type:CHKR.COMM,comm:'Коментарий'},
- {type:CHKR.PROM,sum:16.25},
- {type:CHKR.DSK,void:1,prc:10,sum:-15.0},
- {type:CHKR.DSK,sum:-5.0},
- {type:CHKR.OPL,name:'Готівка',sum:100.0},
- {type:CHKR.ENDCHK}
- ]},
- {no:2,type:CHK_TYPE.RET,ecr_no:"AA12345678",dat:new Date(2012,11,22,12,22),rows:[
- {type:CHKR.SALE,code:1,name:'Tov1',kol:5,cen:3.25,sum:16.25,tax:'A'},
- {type:CHKR.SALE,code:3,name:'Tov3',sum:16.25,tax:'A'},
- {type:CHKR.COMM,comm:'Коментарий'},
- {type:CHKR.PROM,sum:16.25},
- {type:CHKR.DSK,void:1,prc:10,sum:-15.0},
- {type:CHKR.DSK,sum:-5.0},
- {type:CHKR.OPL,name:'Готівка',sum:100.0},
- {type:CHKR.ENDCHK}
- ]},
- {no:3,type:CHK_TYPE.IO,ecr_no:"AA12345678",dat:new Date(2012,11,22,12,22),rows:[
- {type:CHKR.INOUT,name:'Готівка',sum:200.0},
- {type:CHKR.ENDCHK}
- ]},
- {no:4,type:CHK_TYPE.SALE,ecr_no:"AA12345678",dat:new Date(2012,11,22,12,22),rows:[
- {type:CHKR.SALE,code:1,name:'Tov1',kol:5,cen:3.25,sum:16.25,tax:'A'},
- {type:CHKR.SALE,code:3,name:'Tov3',sum:16.25,tax:'A'},
- {type:CHKR.COMM,comm:'Коментарий'},
- {type:CHKR.PROM,sum:16.25},
- {type:CHKR.DSK,void:1,prc:10,sum:-15.0},
- {type:CHKR.DSK,sum:-5.0},
- {type:CHKR.OPL,name:'Готівка',sum:100.0},
- {type:CHKR.ENDCHK}
- ]},
- {no:5,type:CHK_TYPE.RET,ecr_no:"AA12345678",dat:new Date(2012,11,22,12,22),rows:[
- {type:CHKR.SALE,code:1,name:'Tov1',kol:5,cen:3.25,sum:16.25,tax:'A'},
- {type:CHKR.SALE,code:3,name:'Tov3',sum:16.25,tax:'A'},
- {type:CHKR.COMM,comm:'Коментарий'},
- {type:CHKR.PROM,sum:16.25},
- {type:CHKR.DSK,void:1,prc:10,sum:-15.0},
- {type:CHKR.DSK,sum:-5.0},
- {type:CHKR.OPL,name:'Готівка',sum:100.0},
- {type:CHKR.ENDCHK}
- ]},
- {no:6,type:CHK_TYPE.IO,ecr_no:"AA12345678",dat:new Date(2012,11,22,12,22),rows:[
- {type:CHKR.INOUT,name:'Готівка',sum:200.0},
- {type:CHKR.ENDCHK}
- ]}
- ]);*/
+var NapModel = Backbone.Model.extend({
+
+	getDropdowns: function () {
+		return {
+			sFDType:  [
+				{
+					id:   1,
+					name: t("Electronic cash register with fiscal memory")
+				},
+				{
+					id:   2,
+					name: t("Fiscal printer (FP)")
+				},
+				{
+					id:   3,
+					name: t("Electronic fiscal memory system for sales of liquid fuels")
+				},
+				{
+					id:   4,
+					name: t("Integrated automated trading management system")
+				}
+			],
+			sEIKType: [
+				{
+					id:   0,
+					name: t("bulsat")
+				},
+				{
+					id:   1,
+					name: t("PIN")
+				},
+				{
+					id:   2,
+					name: t("FND")
+				},
+				{
+					id:   3,
+					name: t("work number")
+				}
+			],
+			sOPID:    [
+				{
+					id:   0,
+					name: "Mtel"
+				},
+				{
+					id:   1,
+					name: "Globul"
+				},
+				{
+					id:   2,
+					name: "Vivacom"
+				}
+			],
+			sPSType:  getPSType(),
+			sRCFD:    [
+				{
+					name:  t("Dismantling the fiscal memory of FM is done in the following cases:"),
+					items: [
+						{
+							id:   1,
+							name: t("overflowing fiscal memory")
+						},
+						{
+							id:   2,
+							name: t("change of owner")
+						},
+						{
+							id:   3,
+							name: t("terminated registration of the University of Sofia at the initiative of the person")
+						},
+						{
+							id:   4,
+							name: t("scrapping FU")
+						},
+						{
+							id:   5,
+							name: t("damage to fiscal memory that prevents its reading")
+						},
+						{
+							id:   6,
+							name: t("error in a fiscal memory block")
+						},
+						{
+							id:   7,
+							name: t("fault in commissioning of FM")
+						},
+						{
+							id:   8,
+							name: t("after finishing ESFP testing in real terms")
+						}
+					]
+				},
+				{
+					name:  t("Termination of activity:"),
+					items: [
+						{
+							id:   9,
+							name: t("termination of the activity of the person")
+						},
+						{
+							id:   10,
+							name: t("others")
+						}
+					]
+				}
+			]
+		};
+	}
+
+});
+
+var NapRegModel = NapModel.extend({
+	defaults: {
+		sFDType:                    1,
+		sEIK:                       "123",
+		sEIKType:                   "123",
+		sFDIN:                      "12345678",
+		sFMIN:                      "12345678",
+		sFDCert:                    "1",
+		sIMSItf:                    "1",
+		sMSISDN:                    "1",
+		sOPID:                      "1",
+		sOrgName:                   "1",
+		sPSNum:                     "1",
+		sPSType:                    "1",
+		sSEKATTE:                   "2",
+		sSettl:                     "1",
+		sAEkatte:                   "2",
+		sArea:                      "1",
+		sStreetCode:                "2",
+		sStreet:                    "2",
+		sStrNo:                     "2",
+		sBlock:                     "2",
+		sEn:                        "2",
+		sFl:                        "2",
+		sAp:                        "2",
+		sPSName:                    "2",
+		sServiceEIK:                "2",
+		sServiceEIKType:            "2",
+		sServiceContractExpiration: "2",
+		sSOD:                       "2010-02-16T16:47:31"
+	}
+});
+
+var NapDeregModel = NapModel.extend({
+	defaults: {
+		sFDType:  1,
+		sEIK:     "123",
+		sEIKType: "123",
+		sFDIN:    "12345678",
+		sFMIN:    "12345678",
+		sFDRID:   "123456",
+		sRCFD:    1
+	}
+});
+
+var NapChangeRegModel = NapModel.extend({
+	defaults: {
+		sFDType:                    1,
+		sEIK:                       "123",
+		sEIKType:                   "123",
+		sFDIN:                      "12345678",
+		sFMIN:                      "12345678",
+		sFDCert:                    "1",
+		sIMSItf:                    "1",
+		sMSISDN:                    "1",
+		sOPID:                      "1",
+		sOrgName:                   "1",
+		sPSNum:                     "1",
+		sPSType:                    "1",
+		sSEKATTE:                   "2",
+		sSettl:                     "1",
+		sAEkatte:                   "2",
+		sArea:                      "1",
+		sStreetCode:                "2",
+		sStreet:                    "2",
+		sStrNo:                     "2",
+		sBlock:                     "2",
+		sEn:                        "2",
+		sFl:                        "2",
+		sAp:                        "2",
+		sPSName:                    "2",
+		sServiceEIK:                "2",
+		sServiceEIKType:            "2",
+		sServiceContractExpiration: "2",
+		sSOD:                       "2010-02-16T16:47:31"
+	}
+});
+
+var NapGetInfoModel = NapModel.extend({
+	defaults: {
+		sEIK:     "123",
+		sEIKType: "123",
+		sIMSItf:  "1",
+		sMSISDN:  "1",
+		sOPID:    "1"
+	}
+});

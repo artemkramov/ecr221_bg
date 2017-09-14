@@ -100,6 +100,18 @@ var AppRouter = Backbone.Router.extend({
 			case "reset":
 				this.fiscTab = 2;
 				break;
+			case "reg-nap":
+				this.fiscTab = 2;
+				break;
+			case "dereg-nap":
+				this.fiscTab = 3;
+				break;
+			case "change-reg-nap":
+				this.fiscTab = 4;
+				break;
+			case "get-info-nap":
+				this.fiscTab = 5;
+				break;
 		}
 		this.view = new PagesScreen({no: this.fiscTab, models: fiscalPages});
 	},
@@ -221,10 +233,39 @@ var appStart = function () {
 			{lnk: '#fm/fisc', name: 'Fiscalization', page: new FiscDo()},
 			{lnk: '#fm/time', name: 'Time', page: new FiscTime()}
 		];
-		var fiscalResetPage = {lnk: '#fm/reset', name: 'Reset', page: new FiscReset()};
-		if (fiscalCell.get("isFiscalPrinter")) {
-			fiscalPages.push(fiscalResetPage);
-		}
+		//var fiscalResetPage = {lnk: '#fm/reset', name: 'Reset', page: new FiscReset()};
+		//if (fiscalCell.get("isFiscalPrinter")) {
+		//	fiscalPages.push(fiscalResetPage);
+		//}
+
+		/**
+		 * Initialize NAP data
+		 */
+		var napRegModel = new NapRegModel();
+		fiscalPages.push({
+			lnk: "#fm/reg-nap", name: 'NAP registration', page: new NapRegView({
+				model: napRegModel
+			})
+		});
+		var napDeregModel = new NapDeregModel();
+		fiscalPages.push({
+			lnk: "#fm/dereg-nap", name: 'NAP deregistration', page: new NapDeRegView({
+				model: napDeregModel
+			})
+		});
+		var napChangeRegModel = new NapChangeRegModel();
+		fiscalPages.push({
+			lnk: "#fm/change-reg-nap", name: 'NAP change registration', page: new NapRegView({
+				model: napChangeRegModel
+			})
+		});
+		var napGetInfoModel = new NapGetInfoModel();
+		fiscalPages.push({
+			lnk: "#fm/get-info-nap", name: 'NAP get info', page: new NapGetInfoView({
+				model: napGetInfoModel
+			})
+		});
+
 		var models   = schema.tableGroup('net');
 		networkViews = [new InterfacesTable()];
 		if (gprsExists) {
