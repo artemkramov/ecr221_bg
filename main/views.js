@@ -1577,7 +1577,7 @@ var Log = Backbone.View.extend({
 		this.remove();
 		this.insertPoint = 0;
 		this.progs       = {};
-		$.get('/cgi/log?p=1');
+		//$.get('/cgi/log?p=1');
 		$(".nav-stacked").removeClass('static');
 	},
 	tick:     function () {
@@ -1647,37 +1647,166 @@ var InterfacesTable = Backbone.View.extend({
 	}
 });
 
+/**
+ * Parent view for NAP operations
+ */
 var NapView = PageView.extend({
-	events: {
-		"submit .nap-form": "onFormSubmit",
-		"change input.form-control, change select.form-control": "onInputChanged"
+	events:            {
+		"submit .nap-form":           "onFormSubmit",
+		"change input.form-control":  "onInputChanged",
+		"change select.form-control": "onInputChanged"
 	},
-	onInputChanged: function (e) {
-		var input = $(e.target);
-		this.model.set($(input).attr('name'), $(input).val());
+	/**
+	 * Error template for access restrictions
+	 */
+	templateError:     _.template($("#reg-nap-error").html()),
+
+	/**
+	 * Event on the input change
+	 * @param e
+	 */
+	onInputChanged:    function (e) {
+		//var input = $(e.target);
+		//var value = $(input).val();
+		//if (input.is("select")) {
+		//	value = parseInt(value);
+		//}
+		//this.model.set($(input).attr('name'), value);
 	},
-	onFormSubmit: function () {
-		console.log(this.model.toJSON());
+	/**
+	 * Event of the form submit
+	 * @param e
+	 * @returns {boolean}
+	 */
+	onFormSubmit:      function (e) {
+		var self = this;
+
+		/**
+		 * Submit buttom
+		 * @type {*|jQuery}
+		 */
+		var btn  = $(e.target).find("input[type=submit]");
+		self.bundleProperties();
+		$(btn).button("loading");
+		this.showPreloader();
+		this.model.sendEntity().done(function () {
+			$(btn).button("reset");
+			self.render({
+				type: "success",
+				text: t("Operation was made successfully!")
+			});
+		}).fail(function (errorMessage) {
+			$(btn).button("reset");
+			self.render({
+				type: "danger",
+				text: errorMessage
+			});
+		}).always(function () {
+			self.hidePreloader();
+		});
 		return false;
 	},
-	render: function() {
+	/**
+	 * Bundle properties
+	 */
+	bundleProperties: function () {
+		var self = this;
+		var elements = this.$el.find("input.form-control, select.form-control");
+		_.each(elements, function (element) {
+			var value = $(element).val();
+			self.model.set($(element).attr('name'), value);
+		});
+		console.log(self.model.toJSON());
+	},
+	/**
+	 * Show preloader
+	 */
+	showPreloader:     function () {
+		$("body").addClass("preloading");
+	},
+	/**
+	 * Hide preloader
+	 */
+	hidePreloader:     function () {
+		$("body").removeClass("preloading");
+	},
+	/**
+	 * Render the view basing on model and permissions
+	 * @returns {NapView}
+	 */
+	render:            function (message) {
+		var self = this;
 		this.delegateEvents();
-		this.$el.empty();
-		var data = this.model.toJSON();
-		data.dropdowns = this.model.getDropdowns();
-		this.$el.append(this.template(data));
+		self.$el.empty();
+		this.model.getEntity().done(function () {
+			var data       = self.model.toJSON();
+			data.dropdowns = self.model.getDropdowns();
+			self.$el.append(self.template(data));
+			initDateTime();
+			if (!_.isUndefined(message)) {
+				self.pushMessage(message.type, message.text);
+			}
+		}).fail(function (errorMessage) {
+			self.$el.append(self.templateError());
+			self.onErrorEvent(errorMessage);
+		});
 		return this;
+	},
+	/**
+	 * Show alert error message
+	 * @param message
+	 */
+	onErrorEvent:      function (message) {
+		this.pushMessage("danger", message);
+	},
+	/**
+	 * Show alert success message
+	 * @param message
+	 */
+	onSuccessEvent:    function (message) {
+		this.pushMessage("success", message);
+	},
+	/**
+	 * Push message to the user
+	 * @param type
+	 * @param message
+	 */
+	pushMessage:       function (type, message) {
+		var alert = new Alert({
+			model: {
+				type:    type,
+				message: message
+			}
+		});
+		this.clearMessageBlock().append(alert.render().$el);
+		$("html, body").animate({scrollTop: 0}, 0);
+	},
+	/**
+	 * Clear error block
+	 * @returns {*}
+	 */
+	clearMessageBlock: function () {
+		return this.$el.find(".error-block").empty();
 	}
 });
 
+/**
+ * NAP registration view
+ */
 var NapRegView = NapView.extend({
 	template: _.template($("#reg-nap").html())
 });
 
+/**
+ * NAP deregistration view
+ */
 var NapDeRegView = NapView.extend({
 	template: _.template($("#dereg-nap").html())
 });
 
+/**
+ * NAP get info view
+ */
 var NapGetInfoView = NapView.extend({
 	template: _.template($("#get-info-nap").html())
 });

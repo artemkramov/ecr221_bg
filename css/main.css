@@ -53,3 +53,60 @@ a img:active {-webkit-transform: scale(1);transform: scale(1);}
 .nap-form {
     padding-top: 20px;
 }
+
+.nap-form .error-block {
+    margin-top: 0;
+}
+
+.preloader, .file-loader {
+    position: fixed;
+    background: rgba(0, 0, 0, 0.7);
+    width: 100%;
+    top: 0;
+    bottom: 0;
+    z-index: 1;
+    align-items: center;
+    justify-content: center;
+    display: none;
+}
+.file-loader .progress {
+    width: 100%;
+}
+body.preloading .preloader, body.uploading .file-loader {
+    display: flex !important;
+}
+.preloader .loader {
+    text-align: center;
+    font-size: 2em;
+    color: #FFF;
+}
+.spin {
+    -webkit-animation: spin 2s infinite linear;
+    -moz-animation: spin 2s infinite linear;
+    -o-animation: spin 2s infinite linear;
+    animation: spin 2s infinite linear;
+}
+@-moz-keyframes spin {
+    from {
+        -moz-transform: rotate(0deg);
+    }
+    to {
+        -moz-transform: rotate(360deg);
+    }
+}
+@-webkit-keyframes spin {
+    from {
+        -webkit-transform: rotate(0deg);
+    }
+    to {
+        -webkit-transform: rotate(360deg);
+    }
+}
+@keyframes spin {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}

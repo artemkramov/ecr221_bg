@@ -34,7 +34,11 @@ function initDateTime() {
 
 	$(".form-datetime").datetimepicker({format: 'dd-mm-yyyy hh:ii:ss', language: schema.lang});
 
-	$(".form-datetime-iso").datetimepicker({format: 'yyyy-mm-ddThh:ii:ss', language: schema.lang});
+	$(".form-datetime-iso").datetimepicker({
+		format: 'yyyy-mm-ddThh:ii:ss',
+		language: schema.lang,
+		pickerPosition: "top-left"
+	});
 }
 
 function getDatetime(dateTime) {

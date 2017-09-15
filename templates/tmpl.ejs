@@ -545,41 +545,49 @@
     </div>
 </script>
 
+
+<!-- NAP ERROR -->
+<script type="text/template" id="reg-nap-error">
+    <div class="error-block"></div>
+</script>
+
+<!-- NAP REGISTRATION -->
 <script type="text/template" id="reg-nap">
     <form class="nap-form">
+        <div class="error-block"></div>
         <div class="row">
             <div class="col-sm-6">
                 <div class="form-group">
-                    <label for="sFDType"><%= t("sFDType") %>:</label>
-                    <select class="form-control" id="sFDType" name="sFDType" required>
-                        <% _.each(dropdowns.sFDType, function (item) { %>
-                        <option value="<%= item.id %>" <%= item.id == sFDType ? "selected" : "" %>><%= item.name %></option>
+                    <label for="FDType"><%= t("FDType") %>:</label>
+                    <select class="form-control" id="FDType" name="FDType" required>
+                        <% _.each(dropdowns.FDType, function (item) { %>
+                        <option value="<%= item.id %>" <%= item.id == FDType ? "selected" : "" %>><%= item.id + '. ' + item.name %></option>
                         <% }) %>
                     </select>
                 </div>
             </div>
             <div class="col-sm-6">
                 <div class="form-group">
-                    <label for="sEIK"><%= t("sEIK") %>:</label>
-                    <input type="text" id="sEIK" name="sEIK" class="form-control" value="<%= sEIK %>" required/>
+                    <label for="EIK"><%= t("EIK") %>:</label>
+                    <input type="text" id="EIK" name="EIK" class="form-control" value="<%= EIK %>" required/>
                 </div>
             </div>
         </div>
         <div class="row">
             <div class="col-sm-6">
                 <div class="form-group">
-                    <label for="sEIKType"><%= t("sEIKType") %>:</label>
-                    <select class="form-control" id="sEIKType" name="sEIKType" required>
-                        <% _.each(dropdowns.sEIKType, function (item) { %>
-                        <option value="<%= item.id %>" <%= item.id == sEIKType ? "selected" : "" %>><%= item.name %></option>
+                    <label for="EIKType"><%= t("EIKType") %>:</label>
+                    <select class="form-control" id="EIKType" name="EIKType" required>
+                        <% _.each(dropdowns.EIKType, function (item) { %>
+                        <option value="<%= item.id %>" <%= item.id == EIKType ? "selected" : "" %>><%= item.id + '. ' + item.name %></option>
                         <% }) %>
                     </select>
                 </div>
             </div>
             <div class="col-sm-6">
                 <div class="form-group">
-                    <label for="sFDIN"><%= t("sFDIN") %>:</label>
-                    <input type="text" id="sFDIN" name="sFDIN" class="form-control" value="<%= sFDIN %>"
+                    <label for="FDIN"><%= t("FDIN") %>:</label>
+                    <input type="text" id="FDIN" name="FDIN" class="form-control" value="<%= FDIN %>"
                            pattern=".{8,8}" title="<%= t("8 symbols") %>" required/>
                 </div>
             </div>
@@ -587,15 +595,15 @@
         <div class="row">
             <div class="col-sm-6">
                 <div class="form-group">
-                    <label for="sFMIN"><%= t("sFMIN") %>:</label>
-                    <input type="text" id="sFMIN" name="sFMIN" class="form-control" value="<%= sFMIN %>"
+                    <label for="FMIN"><%= t("FMIN") %>:</label>
+                    <input type="text" id="FMIN" name="FMIN" class="form-control" value="<%= FMIN %>"
                            pattern=".{8,8}" title="<%= t("8 symbols") %>"/>
                 </div>
             </div>
             <div class="col-sm-6">
                 <div class="form-group">
-                    <label for="sFDCert"><%= t("sFDCert") %>:</label>
-                    <input type="text" id="sFDCert" name="sFDCert" class="form-control" value="<%= sFDCert %>"
+                    <label for="FDCert"><%= t("FDCert") %>:</label>
+                    <input type="text" id="FDCert" name="FDCert" class="form-control" value="<%= FDCert %>"
                            required/>
                 </div>
             </div>
@@ -603,15 +611,15 @@
         <div class="row">
             <div class="col-sm-6">
                 <div class="form-group">
-                    <label for="sIMSItf"><%= t("sIMSItf") %>:</label>
-                    <input type="text" id="sIMSItf" name="sIMSItf" class="form-control" value="<%= sIMSItf %>"
+                    <label for="IMSI"><%= t("IMSI") %>:</label>
+                    <input type="text" id="IMSI" name="IMSI" class="form-control" value="<%= IMSI %>"
                            required/>
                 </div>
             </div>
             <div class="col-sm-6">
                 <div class="form-group">
-                    <label for="sMSISDN"><%= t("sMSISDN") %>:</label>
-                    <input type="text" id="sMSISDN" name="sMSISDN" class="form-control" value="<%= sMSISDN %>"
+                    <label for="MSISDN"><%= t("MSISDN") %>:</label>
+                    <input type="text" id="MSISDN" name="MSISDN" class="form-control" value="<%= MSISDN %>"
                            required/>
                 </div>
             </div>
@@ -619,18 +627,18 @@
         <div class="row">
             <div class="col-sm-6">
                 <div class="form-group">
-                    <label for="sOPID"><%= t("sOPID") %>:</label>
-                    <select class="form-control" id="sOPID" name="sOPID" required>
-                        <% _.each(dropdowns.sOPID, function (item) { %>
-                        <option value="<%= item.id %>" <%= item.id == sOPID ? "selected" : "" %>><%= item.name %></option>
+                    <label for="OPID"><%= t("OPID") %>:</label>
+                    <select class="form-control" id="OPID" name="OPID" required>
+                        <% _.each(dropdowns.OPID, function (item) { %>
+                        <option value="<%= item.id %>" <%= item.id == OPID ? "selected" : "" %>><%= item.id + '. ' + item.name %></option>
                         <% }) %>
                     </select>
                 </div>
             </div>
             <div class="col-sm-6">
                 <div class="form-group">
-                    <label for="sOrgName"><%= t("sOrgName") %>:</label>
-                    <input type="text" id="sOrgName" name="sOrgName" class="form-control" value="<%= sOrgName %>"
+                    <label for="OrgName"><%= t("OrgName") %>:</label>
+                    <input type="text" id="OrgName" name="OrgName" class="form-control" value="<%= OrgName %>"
                            maxlength="200" required/>
                 </div>
             </div>
@@ -638,17 +646,17 @@
         <div class="row">
             <div class="col-sm-6">
                 <div class="form-group">
-                    <label for="sPSNum"><%= t("sPSNum") %>:</label>
-                    <input type="text" id="sPSNum" name="sPSNum" class="form-control" value="<%= sPSNum %>"
+                    <label for="PSNum"><%= t("PSNum") %>:</label>
+                    <input type="text" id="PSNum" name="PSNum" class="form-control" value="<%= PSNum %>"
                            maxlength="4" required/>
                 </div>
             </div>
             <div class="col-sm-6">
                 <div class="form-group">
-                    <label for="sPSType"><%= t("sPSType") %>:</label>
-                    <select class="form-control" id="sPSType" name="sPSType" required>
-                        <% _.each(dropdowns.sPSType, function (item) { %>
-                        <option value="<%= item.id %>" <%= item.id == sPSType ? "selected" : "" %>><%= item.name %></option>
+                    <label for="PSType"><%= t("PSType") %>:</label>
+                    <select class="form-control" id="PSType" name="PSType" required>
+                        <% _.each(dropdowns.PSType, function (item) { %>
+                        <option value="<%= item.id %>" <%= item.id == PSType ? "selected" : "" %>><%= item.id + '. ' + item.name %></option>
                         <% }) %>
                     </select>
                 </div>
@@ -657,31 +665,15 @@
         <div class="row">
             <div class="col-sm-6">
                 <div class="form-group">
-                    <label for="sSEKATTE"><%= t("sSEKATTE") %>:</label>
-                    <input type="text" id="sSEKATTE" name="sSEKATTE" class="form-control" value="<%= sSEKATTE %>"
+                    <label for="SEKATTE"><%= t("SEKATTE") %>:</label>
+                    <input type="text" id="SEKATTE" name="SEKATTE" class="form-control" value="<%= SEKATTE %>"
                            required/>
                 </div>
             </div>
             <div class="col-sm-6">
                 <div class="form-group">
-                    <label for="sSettl"><%= t("sSettl") %>:</label>
-                    <input type="text" id="sSettl" name="sSettl" class="form-control" value="<%= sSettl %>"
-                           required/>
-                </div>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-sm-6">
-                <div class="form-group">
-                    <label for="sAEkatte"><%= t("sAEkatte") %>:</label>
-                    <input type="text" id="sAEkatte" name="sAEkatte" class="form-control" value="<%= sAEkatte %>"
-                           required/>
-                </div>
-            </div>
-            <div class="col-sm-6">
-                <div class="form-group">
-                    <label for="sArea"><%= t("sArea") %>:</label>
-                    <input type="text" id="sArea" name="sArea" class="form-control" value="<%= sArea %>"
+                    <label for="Settl"><%= t("Settl") %>:</label>
+                    <input type="text" id="Settl" name="Settl" class="form-control" value="<%= Settl %>"
                            required/>
                 </div>
             </div>
@@ -689,60 +681,15 @@
         <div class="row">
             <div class="col-sm-6">
                 <div class="form-group">
-                    <label for="sStreetCode"><%= t("sStreetCode") %>:</label>
-                    <input type="text" id="sStreetCode" name="sStreetCode" class="form-control"
-                           value="<%= sStreetCode %>"
+                    <label for="AEkatte"><%= t("AEkatte") %>:</label>
+                    <input type="text" id="AEkatte" name="AEkatte" class="form-control" value="<%= AEkatte %>"
                            required/>
                 </div>
             </div>
             <div class="col-sm-6">
                 <div class="form-group">
-                    <label for="sStreet"><%= t("sStreet") %>:</label>
-                    <input type="text" id="sStreet" name="sStreet" class="form-control" value="<%= sStreet %>"
-                           required/>
-                </div>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-sm-6">
-                <div class="form-group">
-                    <label for="sStrNo"><%= t("sStrNo") %>:</label>
-                    <input type="text" id="sStrNo" name="sStrNo" class="form-control" value="<%= sStrNo %>"
-                           required/>
-                </div>
-            </div>
-            <div class="col-sm-6">
-                <div class="form-group">
-                    <label for="sBlock"><%= t("sBlock") %>:</label>
-                    <input type="text" id="sBlock" name="sBlock" class="form-control" value="<%= sBlock %>"/>
-                </div>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-sm-6">
-                <div class="form-group">
-                    <label for="sEn"><%= t("sEn") %>:</label>
-                    <input type="text" id="sEn" name="sEn" class="form-control" value="<%= sEn %>"/>
-                </div>
-            </div>
-            <div class="col-sm-6">
-                <div class="form-group">
-                    <label for="sFl"><%= t("sFl") %>:</label>
-                    <input type="text" id="sFl" name="sFl" class="form-control" value="<%= sFl %>"/>
-                </div>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-sm-6">
-                <div class="form-group">
-                    <label for="sAp"><%= t("sAp") %>:</label>
-                    <input type="text" id="sAp" name="sAp" class="form-control" value="<%= sAp %>"/>
-                </div>
-            </div>
-            <div class="col-sm-6">
-                <div class="form-group">
-                    <label for="sPSName"><%= t("sPSName") %>:</label>
-                    <input type="text" id="sPSName" name="sPSName" class="form-control" value="<%= sPSName %>"
+                    <label for="Area"><%= t("Area") %>:</label>
+                    <input type="text" id="Area" name="Area" class="form-control" value="<%= Area %>"
                            required/>
                 </div>
             </div>
@@ -750,8 +697,16 @@
         <div class="row">
             <div class="col-sm-6">
                 <div class="form-group">
-                    <label for="sSOD"><%= t("sSOD") %>:</label>
-                    <input type="text" id="sSOD" name="sSOD" class="form-control form-datetime-iso" value="<%= sSOD %>"
+                    <label for="StreetCode"><%= t("StreetCode") %>:</label>
+                    <input type="text" id="StreetCode" name="StreetCode" class="form-control"
+                           value="<%= StreetCode %>"
+                           required/>
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <div class="form-group">
+                    <label for="Street"><%= t("Street") %>:</label>
+                    <input type="text" id="Street" name="Street" class="form-control" value="<%= Street %>"
                            required/>
                 </div>
             </div>
@@ -759,48 +714,131 @@
         <div class="row">
             <div class="col-sm-6">
                 <div class="form-group">
-                    <input type="submit" value="<%= t("NAP registration") %>" class="btn btn-primary "/>
+                    <label for="StrNo"><%= t("StrNo") %>:</label>
+                    <input type="text" id="StrNo" name="StrNo" class="form-control" value="<%= StrNo %>"
+                           required/>
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <div class="form-group">
+                    <label for="Block"><%= t("Block") %>:</label>
+                    <input type="text" id="Block" name="Block" class="form-control" value="<%= Block %>"/>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-6">
+                <div class="form-group">
+                    <label for="En"><%= t("En") %>:</label>
+                    <input type="text" id="En" name="En" class="form-control" value="<%= En %>"/>
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <div class="form-group">
+                    <label for="Fl"><%= t("Fl") %>:</label>
+                    <input type="text" id="Fl" name="Fl" class="form-control" value="<%= Fl %>"/>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-6">
+                <div class="form-group">
+                    <label for="Ap"><%= t("Ap") %>:</label>
+                    <input type="text" id="Ap" name="Ap" class="form-control" value="<%= Ap %>"/>
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <div class="form-group">
+                    <label for="PSName"><%= t("PSName") %>:</label>
+                    <input type="text" id="PSName" name="PSName" class="form-control" value="<%= PSName %>"
+                           required/>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-sm-6">
+                <div class="form-group">
+                    <label for="ServEIK"><%= t("ServEIK") %>:</label>
+                    <input type="text" id="ServEIK" name="ServEIK" class="form-control" value="<%= ServEIK %>"
+                           required/>
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <div class="form-group">
+                    <label for="ServEIKType"><%= t("ServEIKType") %>:</label>
+                    <select class="form-control" id="ServEIKType" name="ServEIKType" required>
+                        <% _.each(dropdowns.EIKType, function (item) { %>
+                        <option value="<%= item.id %>" <%= item.id == ServEIKType ? "selected" : "" %>><%= item.id + '. ' + item.name %></option>
+                        <% }) %>
+                    </select>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-6">
+                <div class="form-group">
+                    <label for="SOD"><%= t("SOD") %>:</label>
+                    <input type="text" id="SOD" name="SOD" class="form-control form-datetime-iso" value="<%= SOD %>"
+                           required/>
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <div class="form-group">
+                    <label for="SrvContExp"><%= t("SrvContExp") %>:</label>
+                    <input type="text" id="SrvContExp" name="SrvContExp"
+                           class="form-control form-datetime-iso" value="<%= SrvContExp %>"
+                           required/>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-6">
+                <div class="form-group">
+                    <input type="submit" data-loading-text="<%= t("Saving...") %>" value="<%= t("NAP registration") %>" class="btn btn-primary "/>
                 </div>
             </div>
         </div>
     </form>
 </script>
 
+<!-- NAP DEREGISTRATION -->
 <script type="text/template" id="dereg-nap">
     <form class="nap-form">
+        <div class="error-block"></div>
         <div class="row">
             <div class="col-sm-6">
                 <div class="form-group">
-                    <label for="sFDType"><%= t("sFDType") %>:</label>
-                    <select class="form-control" id="sFDType" name="sFDType" required>
-                        <% _.each(dropdowns.sFDType, function (item) { %>
-                        <option value="<%= item.id %>" <%= item.id == sFDType ? "selected" : "" %>><%= item.name %></option>
+                    <label for="FDType"><%= t("FDType") %>:</label>
+                    <select class="form-control" id="FDType" name="FDType" required>
+                        <% _.each(dropdowns.FDType, function (item) { %>
+                        <option value="<%= item.id %>" <%= item.id == FDType ? "selected" : "" %>><%= item.id + '. ' + item.name %></option>
                         <% }) %>
                     </select>
                 </div>
             </div>
             <div class="col-sm-6">
                 <div class="form-group">
-                    <label for="sEIK"><%= t("sEIK") %>:</label>
-                    <input type="text" id="sEIK" name="sEIK" class="form-control" value="<%= sEIK %>" required/>
+                    <label for="EIK"><%= t("EIK") %>:</label>
+                    <input type="text" id="EIK" name="EIK" class="form-control" value="<%= EIK %>" required/>
                 </div>
             </div>
         </div>
         <div class="row">
             <div class="col-sm-6">
                 <div class="form-group">
-                    <label for="sEIKType"><%= t("sEIKType") %>:</label>
-                    <select class="form-control" id="sEIKType" name="sEIKType" required>
-                        <% _.each(dropdowns.sEIKType, function (item) { %>
-                        <option value="<%= item.id %>" <%= item.id == sEIKType ? "selected" : "" %>><%= item.name %></option>
+                    <label for="EIKType"><%= t("EIKType") %>:</label>
+                    <select class="form-control" id="EIKType" name="EIKType" required>
+                        <% _.each(dropdowns.EIKType, function (item) { %>
+                        <option value="<%= item.id %>" <%= item.id == EIKType ? "selected" : "" %>><%= item.id + '. ' + item.name %></option>
                         <% }) %>
                     </select>
                 </div>
             </div>
             <div class="col-sm-6">
                 <div class="form-group">
-                    <label for="sFDIN"><%= t("sFDIN") %>:</label>
-                    <input type="text" id="sFDIN" name="sFDIN" class="form-control" value="<%= sFDIN %>"
+                    <label for="FDIN"><%= t("FDIN") %>:</label>
+                    <input type="text" id="FDIN" name="FDIN" class="form-control" value="<%= FDIN %>"
                            pattern=".{8,8}" title="<%= t("8 symbols") %>" required/>
                 </div>
             </div>
@@ -808,15 +846,15 @@
         <div class="row">
             <div class="col-sm-6">
                 <div class="form-group">
-                    <label for="sFMIN"><%= t("sFMIN") %>:</label>
-                    <input type="text" id="sFMIN" name="sFMIN" class="form-control" value="<%= sFMIN %>"
+                    <label for="FMIN"><%= t("FMIN") %>:</label>
+                    <input type="text" id="FMIN" name="FMIN" class="form-control" value="<%= FMIN %>"
                            pattern=".{8,8}" title="<%= t("8 symbols") %>"/>
                 </div>
             </div>
             <div class="col-sm-6">
                 <div class="form-group">
-                    <label for="sFDRID"><%= t("sFDRID") %>:</label>
-                    <input type="text" id="sFDRID" name="sFDRID" class="form-control" value="<%= sFDRID %>"
+                    <label for="FDRID"><%= t("FDRID") %>:</label>
+                    <input type="text" id="FDRID" name="FDRID" class="form-control" value="<%= FDRID %>"
                            required pattern=".{6,}" title="<%= t("Min 6 symbols") %>"/>
                 </div>
             </div>
@@ -824,12 +862,12 @@
         <div class="row">
             <div class="col-sm-6">
                 <div class="form-group">
-                    <label for="sRCFD"><%= t("sRCFD") %>:</label>
-                    <select class="form-control" id="sRCFD" name="sRCFD" required>
-                        <% _.each(dropdowns.sRCFD, function (group) { %>
+                    <label for="RCFD"><%= t("RCFD") %>:</label>
+                    <select class="form-control" id="RCFD" name="RCFD" required>
+                        <% _.each(dropdowns.RCFD, function (group) { %>
                         <optgroup label="<%= group.name %>">
                             <% _.each(group.items, function (item) { %>
-                            <option value="<%= item.id %>" <%= item.id == sRCFD ? "selected" : "" %>><%= item.name %></option>
+                            <option value="<%= item.id %>" <%= item.id == RCFD ? "selected" : "" %>><%= item.id + '. ' + item.name %></option>
                             <% }) %>
                         </optgroup>
                         <% }) %>
@@ -841,28 +879,30 @@
         <div class="row">
             <div class="col-sm-6">
                 <div class="form-group">
-                    <input type="submit" value="<%= t("NAP deregistration") %>" class="btn btn-primary "/>
+                    <input type="submit" data-loading-text="<%= t("Saving...") %>" value="<%= t("NAP deregistration") %>" class="btn btn-primary "/>
                 </div>
             </div>
         </div>
     </form>
 </script>
 
+<!-- NAP GET INFO -->
 <script type="text/template" id="get-info-nap">
     <form class="nap-form">
+        <div class="error-block"></div>
         <div class="row">
             <div class="col-sm-6">
                 <div class="form-group">
-                    <label for="sEIK"><%= t("sEIK") %>:</label>
-                    <input type="text" id="sEIK" name="sEIK" class="form-control" value="<%= sEIK %>" required/>
+                    <label for="EIK"><%= t("EIK") %>:</label>
+                    <input type="text" id="EIK" name="EIK" class="form-control" value="<%= EIK %>" required/>
                 </div>
             </div>
             <div class="col-sm-6">
                 <div class="form-group">
-                    <label for="sEIKType"><%= t("sEIKType") %>:</label>
-                    <select class="form-control" id="sEIKType" name="sEIKType" required>
-                        <% _.each(dropdowns.sEIKType, function (item) { %>
-                        <option value="<%= item.id %>" <%= item.id == sEIKType ? "selected" : "" %>><%= item.name %></option>
+                    <label for="EIKType"><%= t("EIKType") %>:</label>
+                    <select class="form-control" id="EIKType" name="EIKType" required>
+                        <% _.each(dropdowns.EIKType, function (item) { %>
+                        <option value="<%= item.id %>" <%= item.id == EIKType ? "selected" : "" %>><%= item.id + '. ' + item.name %></option>
                         <% }) %>
                     </select>
                 </div>
@@ -871,15 +911,15 @@
         <div class="row">
             <div class="col-sm-6">
                 <div class="form-group">
-                    <label for="sIMSItf"><%= t("sIMSItf") %>:</label>
-                    <input type="text" id="sIMSItf" name="sIMSItf" class="form-control" value="<%= sIMSItf %>"
+                    <label for="IMSI"><%= t("IMSI") %>:</label>
+                    <input type="text" id="IMSI" name="IMSI" class="form-control" value="<%= IMSI %>"
                            required/>
                 </div>
             </div>
             <div class="col-sm-6">
                 <div class="form-group">
-                    <label for="sMSISDN"><%= t("sMSISDN") %>:</label>
-                    <input type="text" id="sMSISDN" name="sMSISDN" class="form-control" value="<%= sMSISDN %>"
+                    <label for="MSISDN"><%= t("MSISDN") %>:</label>
+                    <input type="text" id="MSISDN" name="MSISDN" class="form-control" value="<%= MSISDN %>"
                            required/>
                 </div>
             </div>
@@ -887,10 +927,10 @@
         <div class="row">
             <div class="col-sm-6">
                 <div class="form-group">
-                    <label for="sOPID"><%= t("sOPID") %>:</label>
-                    <select class="form-control" id="sOPID" name="sOPID" required>
-                        <% _.each(dropdowns.sOPID, function (item) { %>
-                        <option value="<%= item.id %>" <%= item.id == sOPID ? "selected" : "" %>><%= item.name %></option>
+                    <label for="OPID"><%= t("OPID") %>:</label>
+                    <select class="form-control" id="OPID" name="OPID" required>
+                        <% _.each(dropdowns.OPID, function (item) { %>
+                        <option value="<%= item.id %>" <%= item.id == OPID ? "selected" : "" %>><%= item.id + '. ' + item.name %></option>
                         <% }) %>
                     </select>
                 </div>
@@ -900,7 +940,7 @@
         <div class="row">
             <div class="col-sm-6">
                 <div class="form-group">
-                    <input type="submit" value="<%= t("NAP deregistration") %>" class="btn btn-primary "/>
+                    <input type="submit" data-loading-text="<%= t("Saving...") %>" value="<%= t("NAP get info") %>" class="btn btn-primary "/>
                 </div>
             </div>
         </div>

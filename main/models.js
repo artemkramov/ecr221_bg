@@ -547,11 +547,22 @@ var NetworkInfo = Backbone.Collection.extend({
 	}
 });
 
+/**
+ * NAP model
+ */
 var NapModel = Backbone.Model.extend({
+	/**
+	 * Common error message for the bad request
+	 */
+	errorMessage:    "Error while sending the request",
 
-	getDropdowns: function () {
+	/**
+	 * Dropdowns which are used to form selects in forms
+	 * @returns {{FDType: *[], EIKType: *[], OPID: *[], PSType: *, RCFD: *[]}}
+	 */
+	getDropdowns:    function () {
 		return {
-			sFDType:  [
+			FDType:  [
 				{
 					id:   1,
 					name: t("Electronic cash register with fiscal memory")
@@ -569,7 +580,7 @@ var NapModel = Backbone.Model.extend({
 					name: t("Integrated automated trading management system")
 				}
 			],
-			sEIKType: [
+			EIKType: [
 				{
 					id:   0,
 					name: t("bulsat")
@@ -587,7 +598,7 @@ var NapModel = Backbone.Model.extend({
 					name: t("work number")
 				}
 			],
-			sOPID:    [
+			OPID:    [
 				{
 					id:   0,
 					name: "Mtel"
@@ -601,8 +612,8 @@ var NapModel = Backbone.Model.extend({
 					name: "Vivacom"
 				}
 			],
-			sPSType:  getPSType(),
-			sRCFD:    [
+			PSType:  getPSType(),
+			RCFD:    [
 				{
 					name:  t("Dismantling the fiscal memory of FM is done in the following cases:"),
 					items: [
@@ -655,94 +666,194 @@ var NapModel = Backbone.Model.extend({
 				}
 			]
 		};
+	},
+	/**
+	 * Get model data before page loading
+	 * @returns {*}
+	 */
+	getEntity:       function () {
+		var self     = this;
+		var deferred = $.Deferred();
+		$.ajax({
+			url:      self.url,
+			dataType: 'json',
+			type:     'get',
+			error:    function () {
+				return deferred.reject(t(self.errorMessage));
+			},
+			success:  function (data) {
+				if (_.isObject(data)) {
+					/**
+					 * Check if the response contains error property
+					 */
+					var response = self.isErrorResponse(data);
+					if (response.isError) {
+						return deferred.reject(response.message);
+					}
+					for (var property in data) {
+						self.set(property, data[property]);
+					}
+				}
+				return deferred.resolve();
+			}
+		});
+		return deferred.promise();
+	},
+	/**
+	 * Upload model data to the server
+	 * @returns {*}
+	 */
+	sendEntity:      function () {
+		var self     = this;
+		var deferred = $.Deferred();
+		$.ajax({
+			url:      self.url,
+			dataType: 'json',
+			type:     'POST',
+			data:     JSON.stringify(self.toJSON()),
+			timeout:  90000,
+			error:    function () {
+				return deferred.reject(t(self.errorMessage));
+			},
+			success:  function (data) {
+				var response = self.isErrorResponse(data);
+				if (response.isError) {
+					return deferred.reject(response.message);
+				}
+				return deferred.resolve(response);
+			}
+		});
+		return deferred.promise();
+	},
+	/**
+	 * Check if the response contains error
+	 * @param response
+	 * @returns {{isError: boolean, message: string}}
+	 */
+	isErrorResponse: function (response) {
+		var result = {
+			isError: false,
+			message: ""
+		};
+		if (_.isObject(response)) {
+			if (response.hasOwnProperty("Error") && response["Error"] != 0) {
+				var errorMessage = response["Error"];
+				/**
+				 * If the error code has length more than 3 characters
+				 * get just last 2 symbols
+				 */
+				if (!_.isEmpty(errorMessage) && errorMessage.length > 3) {
+					errorMessage = "x" + errorMessage.substr(errorMessage.length - 2, errorMessage.length - 1);
+				}
+				result.message = _.isEmpty(schema.error(errorMessage)) ? t(self.errorMessage) : schema.error(errorMessage);
+				result.isError = true;
+			}
+		}
+		return result;
 	}
 
 });
 
+/**
+ * Registration model
+ */
 var NapRegModel = NapModel.extend({
-	defaults: {
-		sFDType:                    1,
-		sEIK:                       "123",
-		sEIKType:                   "123",
-		sFDIN:                      "12345678",
-		sFMIN:                      "12345678",
-		sFDCert:                    "1",
-		sIMSItf:                    "1",
-		sMSISDN:                    "1",
-		sOPID:                      "1",
-		sOrgName:                   "1",
-		sPSNum:                     "1",
-		sPSType:                    "1",
-		sSEKATTE:                   "2",
-		sSettl:                     "1",
-		sAEkatte:                   "2",
-		sArea:                      "1",
-		sStreetCode:                "2",
-		sStreet:                    "2",
-		sStrNo:                     "2",
-		sBlock:                     "2",
-		sEn:                        "2",
-		sFl:                        "2",
-		sAp:                        "2",
-		sPSName:                    "2",
-		sServiceEIK:                "2",
-		sServiceEIKType:            "2",
-		sServiceContractExpiration: "2",
-		sSOD:                       "2010-02-16T16:47:31"
-	}
+	//defaults: {
+	//	FDType:                    "",
+	//	EIK:                       "",
+	//	EIKType:                   "",
+	//	FDIN:                      "",
+	//	FMIN:                      "",
+	//	FDCert:                    "",
+	//	IMSI:                      "",
+	//	MSISDN:                    "",
+	//	OPID:                      "",
+	//	OrgName:                   "",
+	//	PSNum:                     "",
+	//	PSType:                    "",
+	//	SEKATTE:                   "",
+	//	Settl:                     "",
+	//	AEkatte:                   "",
+	//	Area:                      "",
+	//	StreetCode:                "",
+	//	Street:                    "",
+	//	StrNo:                     "",
+	//	Block:                     "",
+	//	En:                        "",
+	//	Fl:                        "",
+	//	Ap:                        "",
+	//	PSName:                    "",
+	//	ServiceEIK:                "",
+	//	ServiceEIKType:            "",
+	//	ServiceContractExpiration: "",
+	//	SOD:                       ""
+	//},
+	url:      '/cgi/reg_nap'
 });
 
+/**
+ * Deregistration model
+ */
 var NapDeregModel = NapModel.extend({
-	defaults: {
-		sFDType:  1,
-		sEIK:     "123",
-		sEIKType: "123",
-		sFDIN:    "12345678",
-		sFMIN:    "12345678",
-		sFDRID:   "123456",
-		sRCFD:    1
-	}
+	//defaults: {
+	//	FDType:  "",
+	//	EIK:     "",
+	//	EIKType: "",
+	//	FDIN:    "",
+	//	FMIN:    "",
+	//	FDRID:   "",
+	//	RCFD:    ""
+	//},
+	url:      '/cgi/dereg_nap'
 });
 
+/**
+ * Change registration model
+ */
 var NapChangeRegModel = NapModel.extend({
-	defaults: {
-		sFDType:                    1,
-		sEIK:                       "123",
-		sEIKType:                   "123",
-		sFDIN:                      "12345678",
-		sFMIN:                      "12345678",
-		sFDCert:                    "1",
-		sIMSItf:                    "1",
-		sMSISDN:                    "1",
-		sOPID:                      "1",
-		sOrgName:                   "1",
-		sPSNum:                     "1",
-		sPSType:                    "1",
-		sSEKATTE:                   "2",
-		sSettl:                     "1",
-		sAEkatte:                   "2",
-		sArea:                      "1",
-		sStreetCode:                "2",
-		sStreet:                    "2",
-		sStrNo:                     "2",
-		sBlock:                     "2",
-		sEn:                        "2",
-		sFl:                        "2",
-		sAp:                        "2",
-		sPSName:                    "2",
-		sServiceEIK:                "2",
-		sServiceEIKType:            "2",
-		sServiceContractExpiration: "2",
-		sSOD:                       "2010-02-16T16:47:31"
-	}
+	//defaults: {
+	//	FDType:                    "",
+	//	EIK:                       "",
+	//	EIKType:                   "",
+	//	FDIN:                      "",
+	//	FMIN:                      "",
+	//	FDCert:                    "",
+	//	IMSI:                      "",
+	//	MSISDN:                    "",
+	//	OPID:                      "",
+	//	OrgName:                   "",
+	//	PSNum:                     "",
+	//	PSType:                    "",
+	//	SEKATTE:                   "",
+	//	Settl:                     "",
+	//	AEkatte:                   "",
+	//	Area:                      "",
+	//	StreetCode:                "",
+	//	Street:                    "",
+	//	StrNo:                     "",
+	//	Block:                     "",
+	//	En:                        "",
+	//	Fl:                        "",
+	//	Ap:                        "",
+	//	PSName:                    "",
+	//	ServiceEIK:                "",
+	//	ServiceEIKType:            "",
+	//	ServiceContractExpiration: "",
+	//	SOD:                       ""
+	//},
+	url:      '/cgi/chg_reg_nap'
 });
 
+/**
+ * Get info model
+ */
 var NapGetInfoModel = NapModel.extend({
-	defaults: {
-		sEIK:     "123",
-		sEIKType: "123",
-		sIMSItf:  "1",
-		sMSISDN:  "1",
-		sOPID:    "1"
-	}
+	//defaults: {
+	//	EIK:     "",
+	//	EIKType: "",
+	//	IMSI:    "",
+	//	MSISDN:  "",
+	//	OPID:    ""
+	//},
+	url:      '/cgi/info_nap'
 });
